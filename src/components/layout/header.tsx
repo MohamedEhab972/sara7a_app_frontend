@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom"
-import { LayoutDashboard, LogOut, MessageSquare, User } from "lucide-react"
+import { LayoutDashboard, LogOut, MessageSquare, Send, User } from "lucide-react"
 import { cn, getInitials } from "@/lib/utils"
 import { useAuth } from "@/contexts/auth.context"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -17,6 +17,7 @@ import { Sara7aLogo } from "@/components/ui/sara7a-logo"
 const navLinks = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard },
   { to: "/messages", label: "Messages", icon: MessageSquare },
+  { to: "/sent-messages", label: "Sent", icon: Send },
 ]
 
 export function Header() {

@@ -47,6 +47,8 @@ export interface AuthTokens {
 
 export interface MessageReaction {
   emoji: string;
+  /** Only present on get-sent-messages — anonymized (omitted) on get-messages */
+  user?: string;
 }
 
 export interface MessageReply {

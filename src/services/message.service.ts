@@ -21,6 +21,11 @@ export async function getMessages(): Promise<MessagesResponse> {
   return data;
 }
 
+export async function getSentMessages(): Promise<MessagesResponse> {
+  const { data } = await api.get<MessagesResponse>("/message/get-sent-messages");
+  return data;
+}
+
 export async function deleteMessage(id: string): Promise<ApiResponse<Message>> {
   const { data } = await api.delete<ApiResponse<Message>>(`/message/delete-message/${id}`);
   return data;

@@ -7,6 +7,7 @@ import { RegisterPage } from "@/pages/register";
 import { VerifyPage } from "@/pages/verify";
 import { ProfilePage } from "@/pages/profile";
 import { MessagesPage } from "@/pages/messages";
+import { SentMessagesPage } from "@/pages/sent-messages";
 import { PublicMessagePage } from "@/pages/public-message";
 
 export const router = createBrowserRouter([
@@ -35,6 +36,7 @@ export const router = createBrowserRouter([
           { index: true, element: <DashboardPage /> },
           { path: "profile", element: <ProfilePage /> },
           { path: "messages", element: <MessagesPage /> },
+          { path: "sent-messages", element: <SentMessagesPage /> },
         ],
       },
     ],

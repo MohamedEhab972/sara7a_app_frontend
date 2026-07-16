@@ -12,17 +12,10 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import type { Message } from "@/types";
+import { groupReactions } from "@/lib/utils";
 import { ReplyForm } from "./reply-form";
 
 const REACTION_EMOJIS = ["👍", "❤️", "😂", "😮", "😢", "🔥"];
-
-function groupReactions(reactions: Message["reactions"]) {
-  const counts = new Map<string, number>();
-  for (const { emoji } of reactions ?? []) {
-    counts.set(emoji, (counts.get(emoji) ?? 0) + 1);
-  }
-  return [...counts.entries()];
-}
 
 interface MessageCardProps {
   message: Message;
