@@ -8,7 +8,18 @@ import { PageTransition } from "@/components/ui/page-transition";
 import { MessageCard } from "./message-card";
 
 export function MessagesPage() {
-  const { messages, isLoading, isError, deletingId, remove, refetch } = useMessages();
+  const {
+    messages,
+    isLoading,
+    isError,
+    deletingId,
+    remove,
+    refetch,
+    reactingId,
+    react,
+    replyingId,
+    reply,
+  } = useMessages();
 
   return (
     <PageTransition>
@@ -52,6 +63,10 @@ export function MessagesPage() {
                   message={message}
                   onDelete={remove}
                   deleting={deletingId === message._id}
+                  onReact={react}
+                  reacting={reactingId === message._id}
+                  onReply={reply}
+                  replying={replyingId === message._id}
                 />
               ))}
             </AnimatePresence>

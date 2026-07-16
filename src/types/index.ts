@@ -45,12 +45,23 @@ export interface AuthTokens {
   refreshToken: string;
 }
 
+export interface MessageReaction {
+  emoji: string;
+}
+
+export interface MessageReply {
+  content: string;
+  createdAt: string;
+}
+
 export interface Message {
   _id: string;
   content: string;
   sender?: string;
   receiver: string;
   Image: string;
+  reactions: MessageReaction[];
+  reply?: MessageReply;
   createdAt: string;
   updatedAt: string;
 }

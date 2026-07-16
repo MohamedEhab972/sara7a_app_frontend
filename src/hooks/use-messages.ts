@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { deleteMessage, getMessages } from "@/services/message.service";
+import { deleteMessage, getMessages, reactToMessage, replyToMessage } from "@/services/message.service";
 import { getErrorMessage } from "@/lib/api-error";
 import type { Message, MessagesResponse } from "@/types";
 
@@ -47,6 +47,29 @@ export function useMessages() {
     },
   });
 
+  const reactMutation = useMutation({
+    mutationFn: ({ id, emoji }: { id: string; emoji: string }) => reactToMessage(id, emoji),
+    onError: (err) => {
+      toast.error(getErrorMessage(err));
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: MESSAGES_KEY });
+    },
+  });
+
+  const replyMutation = useMutation({
+    mutationFn: ({ id, content }: { id: string; content: string }) => replyToMessage(id, content),
+    onError: (err) => {
+      toast.error(getErrorMessage(err));
+    },
+    onSuccess: () => {
+      toast.success("Reply sent successfully");
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: MESSAGES_KEY });
+    },
+  });
+
   return {
     messages,
     isLoading,
@@ -54,5 +77,9 @@ export function useMessages() {
     refetch,
     deletingId: deleteMutation.isPending ? (deleteMutation.variables as string) : null,
     remove: deleteMutation.mutate,
+    reactingId: reactMutation.isPending ? reactMutation.variables?.id ?? null : null,
+    react: (id: string, emoji: string) => reactMutation.mutate({ id, emoji }),
+    replyingId: replyMutation.isPending ? replyMutation.variables?.id ?? null : null,
+    reply: (id: string, content: string) => replyMutation.mutate({ id, content }),
   };
 }

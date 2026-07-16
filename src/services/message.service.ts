@@ -25,3 +25,13 @@ export async function deleteMessage(id: string): Promise<ApiResponse<Message>> {
   const { data } = await api.delete<ApiResponse<Message>>(`/message/delete-message/${id}`);
   return data;
 }
+
+export async function reactToMessage(id: string, emoji: string): Promise<MessageResponse> {
+  const { data } = await api.post<MessageResponse>(`/message/react-message/${id}`, { emoji });
+  return data;
+}
+
+export async function replyToMessage(id: string, content: string): Promise<MessageResponse> {
+  const { data } = await api.post<MessageResponse>(`/message/reply-message/${id}`, { content });
+  return data;
+}
