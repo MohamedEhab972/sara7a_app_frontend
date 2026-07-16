@@ -18,7 +18,7 @@ const REACTION_EMOJIS = ["👍", "❤️", "😂", "😮", "😢", "🔥"];
 
 function groupReactions(reactions: Message["reactions"]) {
   const counts = new Map<string, number>();
-  for (const { emoji } of reactions) {
+  for (const { emoji } of reactions ?? []) {
     counts.set(emoji, (counts.get(emoji) ?? 0) + 1);
   }
   return [...counts.entries()];
@@ -73,7 +73,7 @@ export function MessageCard({
             {formatDistanceToNowStrict(new Date(message.createdAt), { addSuffix: true })}
           </p>
 
-          {message.reactions.length > 0 && (
+          {(message.reactions?.length ?? 0) > 0 && (
             <div className="mt-2 flex flex-wrap gap-1.5">
               {groupReactions(message.reactions).map(([emoji, count]) => (
                 <span

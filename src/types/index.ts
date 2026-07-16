@@ -60,7 +60,7 @@ export interface Message {
   sender?: string;
   receiver: string;
   Image: string;
-  reactions: MessageReaction[];
+  reactions?: MessageReaction[];
   reply?: MessageReply;
   createdAt: string;
   updatedAt: string;
