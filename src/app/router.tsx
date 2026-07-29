@@ -5,6 +5,8 @@ import { DashboardPage } from "@/pages/dashboard";
 import { LoginPage } from "@/pages/login";
 import { RegisterPage } from "@/pages/register";
 import { VerifyPage } from "@/pages/verify";
+import { ForgotPasswordPage } from "@/pages/forgot-password";
+import { ResetPasswordPage } from "@/pages/reset-password";
 import { ProfilePage } from "@/pages/profile";
 import { MessagesPage } from "@/pages/messages";
 import { SentMessagesPage } from "@/pages/sent-messages";
@@ -22,6 +24,14 @@ export const router = createBrowserRouter([
   {
     path: "verify",
     element: <VerifyPage />,
+  },
+  {
+    path: "forgot-password",
+    element: <ForgotPasswordPage />,
+  },
+  {
+    path: "reset-password",
+    element: <ResetPasswordPage />,
   },
   {
     path: "u/:uniqueAccName",

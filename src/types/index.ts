@@ -72,6 +72,8 @@ export interface Message {
 
 export type AuthResponse = ApiResponse<{ user: User; tokens: AuthTokens }>;
 
+export type ResetOtpResponse = ApiResponse<{ resetToken: string }>;
+
 export type RefreshResponse = ApiResponse<{ accessToken: string }>;
 
 export type MessageResponse = ApiResponse<Message>;

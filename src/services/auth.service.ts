@@ -1,5 +1,13 @@
 import axios, { type AxiosError } from "axios";
-import type { ApiErrorBody, ApiResponse, AuthResponse, RefreshResponse, User, AuthTokens } from "@/types";
+import type {
+  ApiErrorBody,
+  ApiResponse,
+  AuthResponse,
+  RefreshResponse,
+  ResetOtpResponse,
+  User,
+  AuthTokens,
+} from "@/types";
 import { ApiError } from "@/lib/api-error";
 
 const STORAGE_KEYS = {
@@ -102,6 +110,27 @@ export async function verifyAccount(email: string, otp: string): Promise<ApiResp
 
 export async function logoutUser(): Promise<ApiResponse<{ message: string }>> {
   const { data } = await api.get<ApiResponse<{ message: string }>>("/auth/logout");
+  return data;
+}
+
+export async function forgotPassword(email: string): Promise<ApiResponse<null>> {
+  const { data } = await api.post<ApiResponse<null>>("/auth/forgot-password", { email });
+  return data;
+}
+
+export async function verifyResetOtp(email: string, otp: string): Promise<ResetOtpResponse> {
+  const { data } = await api.post<ResetOtpResponse>("/auth/verify-reset-otp", { email, otp });
+  return data;
+}
+
+export async function resetPassword(
+  resetToken: string,
+  newPassword: string,
+): Promise<ApiResponse<null>> {
+  const { data } = await api.post<ApiResponse<null>>("/auth/reset-password", {
+    resetToken,
+    newPassword,
+  });
   return data;
 }
 

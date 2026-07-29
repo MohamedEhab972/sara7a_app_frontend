@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "motion/react";
+import { Link } from "react-router-dom";
 import { useLogin } from "@/hooks/use-login";
 import { Button } from "@/components/ui/button";
 import { PasswordInput } from "@/components/ui/password-input";
@@ -48,9 +49,14 @@ export function LoginForm({ disabled, onSuccess }: LoginFormProps) {
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="password" className="text-sm font-medium">
-          Password
-        </label>
+        <div className="flex items-center justify-between">
+          <label htmlFor="password" className="text-sm font-medium">
+            Password
+          </label>
+          <Link to="/forgot-password" className="text-xs font-medium text-primary hover:underline">
+            Forgot password?
+          </Link>
+        </div>
         <PasswordInput
           id="password"
           autoComplete="current-password"
