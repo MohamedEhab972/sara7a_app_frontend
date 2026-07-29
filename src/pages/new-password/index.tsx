@@ -1,14 +1,15 @@
 import { useLocation, useNavigate, Navigate, Link } from "react-router-dom";
 import { motion } from "motion/react";
-import { ShieldCheck } from "lucide-react";
+import { KeyRound } from "lucide-react";
 import { useAuth } from "@/contexts/auth.context";
-import { ResetPasswordForm } from "./reset-password-form";
+import { NewPasswordForm } from "./new-password-form";
 
-export function ResetPasswordPage() {
+export function NewPasswordPage() {
   const { user, isAuthLoading } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
-  const email: string | undefined = (location.state as { email?: string })?.email;
+  const state = location.state as { resetToken?: string; email?: string } | null;
+  const resetToken = state?.resetToken;
 
   if (isAuthLoading) {
     return (
@@ -19,6 +20,7 @@ export function ResetPasswordPage() {
   }
 
   if (user) return <Navigate to="/" replace />;
+  if (!resetToken) return <Navigate to="/forgot-password" replace />;
 
   return (
     <div className="flex min-h-svh items-center justify-center bg-muted/30 px-4">
@@ -35,20 +37,22 @@ export function ResetPasswordPage() {
             transition={{ type: "spring", stiffness: 260, damping: 18, delay: 0.1 }}
             className="mx-auto flex size-14 items-center justify-center rounded-full bg-primary/10"
           >
-            <ShieldCheck className="size-7 text-primary" />
+            <KeyRound className="size-7 text-primary" />
           </motion.div>
-          <h1 className="mt-4 font-display text-2xl font-bold tracking-tight">Verify OTP</h1>
+          <h1 className="mt-4 font-display text-2xl font-bold tracking-tight">
+            Choose a new password
+          </h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            {email ? `Enter the OTP sent to ${email}` : "Enter your email and the OTP you received"}
+            {state?.email
+              ? `Set a new password for ${state.email}`
+              : "Set a new password for your account"}
           </p>
         </div>
 
         <div className="rounded-2xl border border-border/60 bg-card/70 p-6 shadow-glass backdrop-blur-xl">
-          <ResetPasswordForm
-            defaultEmail={email}
-            onSuccess={(resetToken, verifiedEmail) =>
-              navigate("/new-password", { state: { resetToken, email: verifiedEmail } })
-            }
+          <NewPasswordForm
+            resetToken={resetToken}
+            onSuccess={() => navigate("/login", { replace: true })}
           />
         </div>
 

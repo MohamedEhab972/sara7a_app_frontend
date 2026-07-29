@@ -7,6 +7,7 @@ import { RegisterPage } from "@/pages/register";
 import { VerifyPage } from "@/pages/verify";
 import { ForgotPasswordPage } from "@/pages/forgot-password";
 import { ResetPasswordPage } from "@/pages/reset-password";
+import { NewPasswordPage } from "@/pages/new-password";
 import { ProfilePage } from "@/pages/profile";
 import { MessagesPage } from "@/pages/messages";
 import { SentMessagesPage } from "@/pages/sent-messages";
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
   {
     path: "reset-password",
     element: <ResetPasswordPage />,
+  },
+  {
+    path: "new-password",
+    element: <NewPasswordPage />,
   },
   {
     path: "u/:uniqueAccName",

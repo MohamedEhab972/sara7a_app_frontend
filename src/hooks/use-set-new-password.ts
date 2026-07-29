@@ -1,20 +1,19 @@
 import { useState } from "react";
 import { toast } from "sonner";
-import { verifyResetOtp, resetPassword } from "@/services/auth.service";
+import { resetPassword } from "@/services/auth.service";
 import { getErrorMessage } from "@/lib/api-error";
 
 interface Options {
   onSuccess?: () => void;
 }
 
-export function useResetPassword({ onSuccess }: Options = {}) {
+export function useSetNewPassword({ onSuccess }: Options = {}) {
   const [loading, setLoading] = useState(false);
 
-  async function reset(email: string, otp: string, newPassword: string) {
+  async function setNewPassword(resetToken: string, newPassword: string) {
     setLoading(true);
     try {
-      const { data } = await verifyResetOtp(email, otp);
-      await resetPassword(data.resetToken, newPassword);
+      await resetPassword(resetToken, newPassword);
       toast.success("Password updated successfully");
       onSuccess?.();
     } catch (err) {
@@ -24,5 +23,5 @@ export function useResetPassword({ onSuccess }: Options = {}) {
     }
   }
 
-  return { reset, loading };
+  return { setNewPassword, loading };
 }
